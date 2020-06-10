@@ -1,0 +1,97 @@
+apiVersion: redhatcop.redhat.io/v1alpha1
+kind: NamespaceConfig
+metadata:
+  name: small-size
+spec:
+  selector:
+    matchLabels:
+      size: small
+  resources:
+    - apiVersion: v1
+      kind: ResourceQuota
+      metadata:
+        name: small-size
+      spec:
+        hard:
+          requests.cpu: "1"
+          requests.memory: "1Gi"
+          requests.storage: "10Gi"
+    - apiVersion: v1
+      kind: LimitRange
+      metadata:
+        name: default-limitrange
+      spec:
+        limits:
+          - default:
+              cpu: 500m
+              memory: 1Gi
+            defaultRequest:
+              cpu: 500m
+              memory: 512Mi
+            type: Container
+
+---
+apiVersion: redhatcop.redhat.io/v1alpha1
+kind: NamespaceConfig
+metadata:
+  name: medium-size
+spec:
+  selector:
+    matchLabels:
+      size: medium
+  resources:
+    - apiVersion: v1
+      kind: ResourceQuota
+      metadata:
+        name: medium-size
+      spec:
+        hard:
+          requests.cpu: "2"
+          requests.memory: "2Gi"
+          requests.storage: "20Gi"
+    - apiVersion: v1
+      kind: LimitRange
+      metadata:
+        name: default-limitrange
+      spec:
+        limits:
+          - default:
+              cpu: 500m
+              memory: 2Gi
+            defaultRequest:
+              cpu: 500m
+              memory: 512Mi
+            type: Container
+
+---
+apiVersion: redhatcop.redhat.io/v1alpha1
+kind: NamespaceConfig
+metadata:
+  name: large-size
+spec:
+  selector:
+    matchLabels:
+      size: large
+  resources:
+    - apiVersion: v1
+      kind: ResourceQuota
+      metadata:
+        name: large-size
+      spec:
+        hard:
+          requests.cpu: "4"
+          requests.memory: "4Gi"
+          requests.storage: "40Gi"
+    - apiVersion: v1
+      kind: LimitRange
+      metadata:
+        name: default-limitrange
+      spec:
+        limits:
+          - default:
+              cpu: 500m
+              memory: 4Gi
+            defaultRequest:
+              cpu: 500m
+              memory: 512Mi
+            type: Container

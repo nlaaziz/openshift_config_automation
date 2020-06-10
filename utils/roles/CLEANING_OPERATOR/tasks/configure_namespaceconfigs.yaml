@@ -1,0 +1,17 @@
+- name: deploy np-multitenant
+  k8s:
+    host: "{{api_url}}"
+    api_key: "{{k8s_api_key}}"
+    validate_certs: no
+    namespace: "namespace-configuration-operator"
+    definition: "{{lookup('template', 'namespaceconf_multitenant.yaml')}}"
+    state: present
+
+- name: deploy t-shirts
+  k8s:
+    host: "{{api_url}}"
+    api_key: "{{k8s_api_key}}"
+    validate_certs: no
+    namespace: "namespace-configuration-operator"
+    definition: "{{lookup('template', 'namespaceconf_tshirts.yaml')}}"
+    state: present

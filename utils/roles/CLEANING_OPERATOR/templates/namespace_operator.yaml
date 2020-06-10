@@ -1,0 +1,10 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: namespace-configuration-operator
+  annotations:
+    openshift.io/description: ''
+    openshift.io/display-name: ''
+spec:
+  finalizers:
+    - kubernetes

@@ -1,0 +1,10 @@
+CLEANING_OPERATOR_GIT_REPO: https://github.com/nlaaziz/cleaning-operator.git
+CLEANING_OPERATOR_PATH: /srv/checkout/
+CLEANING_OPERATOR_RESOURCES_PATH: {{ CLEANING_OPERATOR_PATH }}/deploy
+CLEANING_OPERATOR_RESOURCES_LIST:
+  - {{ CLEANING_OPERATOR_RESOURCES_PATH }}/crds/cleaning.ansible-operator.com_cleaningconfigs_crd.yaml
+  - {{ CLEANING_OPERATOR_RESOURCES_PATH }}/service_account.yaml
+  - {{ CLEANING_OPERATOR_RESOURCES_PATH }}/role.yaml
+  - {{ CLEANING_OPERATOR_RESOURCES_PATH }}/role_binding.yaml
+  - {{ CLEANING_OPERATOR_RESOURCES_PATH }}/operator.yaml
+CLEANING_OPERATOR_NAMESPACE: openshift-cleaning-operator

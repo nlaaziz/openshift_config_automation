@@ -1,0 +1,35 @@
+- name: checkout CleaningOperator repo
+  git:
+    repo: CLEANING_OPERATOR_GIT_REPO
+    dest: {{ CLEANING_OPERATOR_PATH }}
+
+- name: Create project openshift-cleaning-operator
+  k8s:
+    host: "{{api_url}}"
+    api_key: "{{k8s_api_key}}"
+    validate_certs: no
+    definition: "{{lookup('template', 'namespace_operator.yaml')}}"
+    state: present
+
+- name: deploy objects
+  k8s:
+    host: "{{api_url}}"
+    api_key: "{{k8s_api_key}}"
+    validate_certs: no
+    namespace: {{ CLEANING_OPERATOR_NAMESPACE}}
+    definition: "{{lookup('file', '{{ item }}')}}"
+    state: present
+  with_items: {{ CLEANING_OPERATOR_RESOURCES_LIST }}
+
+- name: wait for cleaning operator pods
+  k8s_info:
+    kind: Pod
+    namespace: {{ CLEANING_OPERATOR_NAMESPACE}}
+    field_selectors:
+      - status.phase=Running
+    label_selectors :
+      - name = cleaning-operator
+  register: pods
+  until: pods.resources|length == 1
+  retries: 60
+  delay: 5

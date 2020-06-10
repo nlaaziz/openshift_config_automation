@@ -1,0 +1,10 @@
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  annotations:
+    olm.providedAPIs: NamespaceConfig.v1alpha1.redhatcop.redhat.io
+  name: namespace-configuration-operator-infra
+  namespace: namespace-configuration-operator
+spec:
+  targetNamespaces:
+  - namespace-configuration-operator

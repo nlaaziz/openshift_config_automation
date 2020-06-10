@@ -1,0 +1,34 @@
+- name: Create project namespace-configuration-operator
+  k8s:
+    host: "{{api_url}}"
+    api_key: "{{k8s_api_key}}"
+    validate_certs: no
+    definition: "{{lookup('template', 'namespace_operator.yaml')}}"
+    state: present
+
+- name: Create namespace operatorgroup
+  k8s:
+    host: "{{api_url}}"
+    api_key: "{{k8s_api_key}}"
+    validate_certs: no
+    definition: "{{lookup('template', 'namespace_operator_group.yaml')}}"
+    state: present
+
+- name: Create namespace subscription
+  k8s:
+    host: "{{api_url}}"
+    api_key: "{{k8s_api_key}}"
+    validate_certs: no
+    definition: "{{lookup('template', 'namespace_operator_subscription.yaml')}}"
+    state: present
+
+- name: wait for namespace operator pods
+  k8s_info:
+    kind: Deployment
+    namespace: namespace-configuration-operator
+    field_selectors:
+      - metadata.name=namespace-configuration-operator
+  register: operator
+  until: operator.resources|length > 0 and operator.resources[0].status.availableReplicas is defined and operator.resources[0].status.replicas==1
+  retries: 60
+  delay: 5

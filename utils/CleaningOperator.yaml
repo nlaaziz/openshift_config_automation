@@ -1,0 +1,7 @@
+- import_playbook: OpenshiftCredentials.yaml
+  when: k8s_username is not defined or k8s_api_key is not defined
+
+- hosts: localhost
+  connection: local
+  roles:
+    - role: CLEANING_OPERATOR

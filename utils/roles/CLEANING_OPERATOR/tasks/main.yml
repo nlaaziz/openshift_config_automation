@@ -1,0 +1,5 @@
+- name: configure namespaceconfig operator
+  import_tasks: configure_namespaceconfig_operator.yaml
+
+- name: deploy namespaceconfigs
+  import_tasks: configure_namespaceconfigs.yaml

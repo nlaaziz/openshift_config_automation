@@ -1,0 +1,10 @@
+- import_playbook: utils/OpenshiftCredentials.yaml
+  when: k8s_username is not defined or k8s_api_key is not defined
+
+# deploy namespace config operator along with some basic namespaceConfigs
+- import_playbook: utils/NamespaceConfig.yaml
+  when: config=="all" or config=="NamespaceConfig"
+
+# deploy cleaning operator
+- import_playbook: utils/CleaningOperator.yaml
+  when: config=="all" or config=="CleaningOperator"

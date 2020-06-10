@@ -1,0 +1,1 @@
+# openshift_config_automation
